@@ -28,7 +28,7 @@ Ohai.plugin(:OpenVirtuozzo) do
   collect_data(:linux) do
     if openvz? && !openvz_host?
       network['interfaces'].each do |nic, attrs|
-        next unless attrs['type'] =~ /(venet|veth)/
+        next unless nic =~ /(venet|veth)/
         attrs['addresses'].each do |addr, params|
           ipaddress addr if addr !~ /^127/ && params['family'] == 'inet'
         end
