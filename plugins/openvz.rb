@@ -27,6 +27,11 @@ Ohai.plugin(:OpenVirtuozzo) do
 
   collect_data(:linux) do
     if openvz? && !openvz_host?
+      if openvz_metadata = hint?('openvz')
+        cpu['total'] = openvz_metadata['cpu']['total']
+        memory['total'] = openvz_metadata['memory']['total']
+      end
+
       network['interfaces'].each do |nic, attrs|
         next unless nic =~ /(venet|veth)/
         attrs['addresses'].each do |addr, params|
