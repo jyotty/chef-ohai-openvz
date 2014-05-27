@@ -15,6 +15,9 @@
 #
 
 Ohai.plugin(:OpenVirtuozzo) do
+  depends 'cpu'
+  depends 'memory'
+  provides 'cpu/total', 'memory/total'
   provides 'ipaddress'
 
   def openvz?
